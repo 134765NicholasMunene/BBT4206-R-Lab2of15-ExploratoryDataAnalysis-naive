@@ -182,7 +182,7 @@ sapply(StudentPerformanceDataset, class)
 # than numeric variables, e.g., counting the number of male and female
 # participants instead of counting the frequency of each participant’s height.
 StudentPerformanceDataset_dataset_freq <- StudentPerformanceDataset$goal_oriented
-cbind(frequency = table(X20230412_20230719_BI1_BBIT4_1_StudentPerformanceDataset_dataset_freq),
+cbind(frequency = table(StudentPerformanceDataset_dataset_freq),
       percentage = prop.table(table(StudentPerformanceDataset_dataset_freq)) * 100)
 
 StudentPerformanceDataset_dataset_freq <- StudentPerformanceDataset$internet
@@ -391,7 +391,7 @@ View(student_performance_cor)
 # Two-Way ANOVA can be used to test the effect of the 3 types of fertilizer and
 # the 2 types of planting density on crop yield.
 
-student_performance_one_way_anova <- aov(TOTAL = Coursework TOTAL + EXAM (100%)~ goal_oriented, data = StudentPerformanceDataset)
+student_performance_one_way_anova <- aov(`TOTAL = Coursework TOTAL + EXAM (100%)` ~ goal_oriented, data = StudentPerformanceDataset)
 summary(student_performance_one_way_anova)
 
 # This shows the result of each variable and the residual. The residual refers
@@ -431,7 +431,7 @@ summary(student_performance_one_way_anova)
 # (two independent variables):
 
 
-student_performance_two_way_anova <- aov(TOTAL = Coursework TOTAL + EXAM (100%)~ goal_oriented + anticipate_test_questions, data = StudentPerformanceDataset)
+student_performance_two_way_anova <- aov(`TOTAL = Coursework TOTAL + EXAM (100%)` ~ goal_oriented + anticipate_test_questions, data = StudentPerformanceDataset)
 summary(student_performance_two_way_anova)
 
 # Specifying an asterisk (*) instead of a plus (+) between the two independent
@@ -448,7 +448,7 @@ summary(student_performance_two_way_anova)
 
 
 summary(crop_dataset_interactive_two_way_anova)
-student_performance_interactive_two_way_anova <- aov(TOTAL = Coursework TOTAL + EXAM (100%)~ goal_oriented * anticipate_test_questions, data = StudentPerformanceDataset)
+student_performance_interactive_two_way_anova <- aov(`TOTAL = Coursework TOTAL + EXAM (100%)` ~ goal_oriented * anticipate_test_questions, data = StudentPerformanceDataset)
 summary(student_performance_one_way_anova)
 
 # This can be interpreted as follows:
@@ -472,7 +472,7 @@ summary(student_performance_one_way_anova)
 # Execute the following to add the “block” variable:
 
 
-student_performance_interactive_two_way_anova_with_block <- aov(TOTAL = Coursework TOTAL + EXAM (100%)~ goal_oriented + anticipate_test_questions + space_out_revision, data = StudentPerformanceDataset)
+student_performance_interactive_two_way_anova_with_block <- aov(`TOTAL = Coursework TOTAL + EXAM (100%)` ~ goal_oriented + anticipate_test_questions + space_out_revision, data = StudentPerformanceDataset)
 summary(student_performance_interactive_two_way_anova_with_block)
 
 # This can be interpreted as follows:
@@ -650,7 +650,7 @@ if (!is.element("ggcorrplot", installed.packages()[, 1])) {
 }
 require("ggcorrplot")
 ggcorrplot(cor(BostonHousing[, -4]))
-ggcorrplot(cor(iris_dataset[, 1:4]))
+ggcorrplot(cor(StudentPerformanceDataset[, 1:4]))
 ggcorrplot(cor(PimaIndiansDiabetes[, 1:8]))
 
 ### STEP 22. Create a Scatter Plot ----
@@ -676,6 +676,7 @@ if (!is.element("caret", installed.packages()[, 1])) {
   install.packages("caret", dependencies = TRUE)
 }
 require("caret")
+featurePlot(x=StudentPerformanceDataset[, c(18,8)],y=StudentPerformanceDataset[,c(15)], plot = "box")
 featurePlot(x = iris_dataset[, 1:4], y = iris_dataset[, 5], plot = "box")
 featurePlot(x = PimaIndiansDiabetes[, 1:8], y = PimaIndiansDiabetes[, 9],
             plot = "box")
